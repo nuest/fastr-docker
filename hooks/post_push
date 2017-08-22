@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+echo "Add version tag"
+docker tag $IMAGE_NAME $DOCKER_REPO:devel
+docker push $DOCKER_REPO:devel
