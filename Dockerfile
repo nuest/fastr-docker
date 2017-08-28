@@ -5,7 +5,19 @@ RUN sed -i "s/deb.debian.org/cdn-fastly.deb.debian.org/" /etc/apt/sources.list \
     && sed -i "s/security.debian.org/cdn-fastly.debian.org\/debian-security/" /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-        build-essential
+        build-essential \
+        gfortran \
+        libpcre3-dev \
+        libreadline-dev \
+        zlib1g-dev \
+        libbz2-dev \
+        liblzma-dev \
+        libcurl4-openssl-dev \
+        ed \
+        libmpc-dev \
+    && ldconfig
+
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
 
 WORKDIR /tmp
 ENV JVMCI_VERSION_CHECK=ignore
@@ -18,9 +30,6 @@ RUN git clone --depth 1 -b master https://github.com/graalvm/mx.git /usr/mx \
 #    && mx sforceimports \
 #    && mx build \
 #    && mx vm
-    # install FastR from source:
-    #$ mkdir $FASTR_HOME
-    #$ cd $FASTR_HOME
     && git clone --depth 1 http://github.com/graalvm/fastr \
     && cd fastr \
     && mx build
