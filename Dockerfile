@@ -25,14 +25,7 @@ ENV JVMCI_VERSION_CHECK=ignore
 # based on https://github.com/oracle/fastr#building-fastr-from-source
 RUN git clone --depth 1 -b master https://github.com/graalvm/mx.git /usr/mx \
     && export PATH=/usr/mx:$PATH \
-    # install graal from source:
-#    && git clone  --depth 1 -b master https://github.com/graalvm/graal-core.git \
-#    && cd graal-core \
-#    && mx \
-#    && mx sforceimports \
-#    && mx build \
-#    && mx vm
-    && git clone --depth 1 http://github.com/graalvm/fastr \
+    && git clone --depth 1 https://github.com/oracle/fastr \
     && cd fastr \
     && mx build
 
