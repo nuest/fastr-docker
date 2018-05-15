@@ -19,14 +19,19 @@ RUN sed -i "s/deb.debian.org/cdn-fastly.deb.debian.org/" /etc/apt/sources.list \
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
 
-WORKDIR /tmp
-ENV JVMCI_VERSION_CHECK=ignore
+ENV FASTR_HOME=/fastr
+ENV MX_HOME=/usr/mx
+ENV PATH=$MX_HOME:$PATH
+
+# See https://github.com/oracle/graal/blob/master/compiler/src/org.graalvm.compiler.hotspot/src/org/graalvm/compiler/hotspot/JVMCIVersionCheck.java
+#ENV JVMCI_VERSION_CHECK=ignore
+
+WORKDIR $FASTR_HOME
 
 # based on https://github.com/oracle/fastr#building-fastr-from-source
-RUN git clone --depth 1 -b master https://github.com/graalvm/mx.git /usr/mx \
-    && export PATH=/usr/mx:$PATH \
-    && git clone --depth 1 https://github.com/oracle/fastr \
-    && cd fastr \
+RUN git clone --depth 1 -b master https://github.com/graalvm/mx.git $MX_HOME \
+    && git clone --depth 1 https://github.com/oracle/fastr $FASTR_HOME \
+    && cd $FASTR_HOME \
     && mx build
 
 ARG VCS_URL
@@ -45,7 +50,5 @@ LABEL org.label-schema.license="https://raw.githubusercontent.com/graalvm/fastr/
     org.label-schema.schema-version="rc1" \
 maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>"
 
-WORKDIR $HOME
-ENV PATH=/usr/mx:$PATH
 ENV LANG=en_US.UTF-8
 CMD ["mx", "R"]
