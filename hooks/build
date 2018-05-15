@@ -1,8 +1,11 @@
 #!/bin/bash
 set -e
 
+GNUR_VERSION = $(cat /tmp/fastr/mx.fastr/suite.py | grep "cran" | grep -o '[0-9]\.[0-9]\.[0-9]')
+
 docker build \
   --build-arg VCS_REF=`git rev-parse --short HEAD` \
   --build-arg VCS_URL=`git config --get remote.origin.url` \
   --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` \
+  --build-arg GNUR_VERSION=$GNUR_VERSION \
   -t $IMAGE_NAME .

@@ -39,6 +39,7 @@ RUN git clone --depth 1 -b master https://github.com/graalvm/mx.git /usr/mx \
 ARG VCS_URL
 ARG VCS_REF
 ARG BUILD_DATE
+ARG GNUR_VERSION
 LABEL org.label-schema.license="https://raw.githubusercontent.com/graalvm/fastr/master/LICENSE" \
     org.label-schema.vendor="FastR project team, Dockerfile provided by Daniel Nüst" \
 	org.label-schema.name="FastR" \
@@ -47,7 +48,7 @@ LABEL org.label-schema.license="https://raw.githubusercontent.com/graalvm/fastr/
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.build-date=$BUILD_DATE \
     org.fastr.version="devel" \
-    org.gnur.version="3.4.0" \
+    org.gnur.version=$GNUR_VERSION \
     org.label-schema.schema-version="rc1" \
 maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>"
 
