@@ -2,7 +2,7 @@
 set -e
 
 curl https://raw.githubusercontent.com/oracle/fastr/master/mx.fastr/suite.py -O
-GNUR_VERSION = $(cat suite.py | grep "cran" | grep -o '[0-9]\.[0-9]\.[0-9]')
+GNUR_VERSION=$(cat suite.py | grep "cran" | grep -o '[0-9]\.[0-9]\.[0-9]')
 
 docker build \
   --build-arg VCS_REF=`git rev-parse --short HEAD` \
