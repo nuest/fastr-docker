@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-GNUR_VERSION = $(cat /tmp/fastr/mx.fastr/suite.py | grep "cran" | grep -o '[0-9]\.[0-9]\.[0-9]')
+wget https://raw.githubusercontent.com/oracle/fastr/master/mx.fastr/suite.py
+GNUR_VERSION = $(cat suite.py | grep "cran" | grep -o '[0-9]\.[0-9]\.[0-9]')
 
 docker build \
   --build-arg VCS_REF=`git rev-parse --short HEAD` \
