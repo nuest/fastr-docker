@@ -21,6 +21,8 @@ ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
 
 WORKDIR /tmp
 ENV JVMCI_VERSION_CHECK=ignore
+
+# based on https://github.com/oracle/fastr#building-fastr-from-source
 RUN git clone --depth 1 -b master https://github.com/graalvm/mx.git /usr/mx \
     && export PATH=/usr/mx:$PATH \
     # install graal from source:
