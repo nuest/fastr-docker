@@ -47,8 +47,11 @@ LABEL org.label-schema.license="https://raw.githubusercontent.com/graalvm/fastr/
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.build-date=$BUILD_DATE \
     org.fastr.version="devel" \
-    org.gnur.version="3.3.2" \
+    org.gnur.version="3.4.0" \
     org.label-schema.schema-version="rc1" \
 maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>"
 
-CMD ["mx R"]
+WORKDIR /tmp/fastr
+ENV PATH=/usr/mx:$PATH
+ENV LANG=en_US.UTF-8
+CMD ["mx", "R"]
