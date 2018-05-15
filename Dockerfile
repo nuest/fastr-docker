@@ -52,7 +52,7 @@ LABEL org.label-schema.license="https://raw.githubusercontent.com/graalvm/fastr/
     org.label-schema.schema-version="rc1" \
 maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>"
 
-WORKDIR /tmp/fastr
+WORKDIR $HOME
 ENV PATH=/usr/mx:$PATH
 ENV LANG=en_US.UTF-8
 CMD ["mx", "R"]
