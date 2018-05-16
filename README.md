@@ -8,9 +8,62 @@
 
 ```bash
 docker build --tag fastr .
-
-docker run --rm -it fastr
 ```
+
+## Use
+
+```bash
+docker run --rm -it fastr
+
+# run specific command
+docker run --rm -it fastr -e "sessionInfo()"
+```
+
+By default, the Graal compiler is active.
+You can disable it by defining your own entrypoint and command:
+
+```bash
+docker run --rm -it --entrypoint mx fastr R
+```
+
+The following shows a comparison of the feature - further tests welcome, see #3
+
+```bash
+# with Grall compiler (default)
+docker run --rm -it fastr -q -e 'install.packages("microbenchmark", quiet = TRUE); cat("Run benchmark...\n"); microbenchmark::microbenchmark("unique list" = { for (i in 1:10000) unique(1:i) }, times = 25, unit = "s")'
+```
+
+Output _with_ Graal compiler:
+
+```
+> install.packages("microbenchmark", quiet = TRUE); cat("Run benchmark...\n"); microbenchmark::microbenchmark("unique list" = { for (i in 1:10000) unique(1:i) }, times = 25, unit = "s")
+Updating HTML index of packages in '.Library'
+Making 'packages.html' ... done
+Run benchmark...
+Unit: seconds
+        expr       min        lq     mean    median       uq      max neval
+ unique list 0.7662038 0.7964194 1.057809 0.9022891 1.121864 3.433876    25
+```
+
+```bash
+# without
+docker run --rm -it --entrypoint mx fastr R -e 'install.packages("microbenchmark", quiet = TRUE); cat("Run benchmark...\n"); microbenchmark::microbenchmark("unique list" = { for (i in 1:10000) unique(1:i) }, times = 25, unit = "s")'
+```
+
+Output _without_ Graal compiler:
+
+```
+> install.packages("microbenchmark", quiet = TRUE); cat("Run benchmark...\n"); microbenchmark::microbenchmark("unique list" = { for (i in 1:10000) unique(1:i) }, times = 25, unit = "s")
+Updating HTML index of packages in '.Library'
+Making 'packages.html' ... done
+Run benchmark...
+Unit: seconds
+        expr      min      lq     mean   median       uq      max neval
+ unique list 1.280034 1.38484 1.505686 1.482067 1.551866 2.120451    25
+```
+
+Notice the differences between `median`/`mean` and `max`/`min`, i.e. the speed up occurring after a longer first execution if using the Graal compiler.
+The difference gets more obvious with higher repetition numbers (parameter `times`).
 
 ## Code of Conduct
 

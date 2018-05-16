@@ -32,8 +32,11 @@ WORKDIR $FASTR_HOME
 # based on https://github.com/oracle/fastr#building-fastr-from-source
 RUN git clone --depth 1 -b master https://github.com/graalvm/mx.git $MX_HOME \
     && git clone --depth 1 https://github.com/oracle/fastr $FASTR_HOME \
-    && cd $FASTR_HOME \
     && mx build
+    
+# https://github.com/oracle/fastr/issues/11#issuecomment-389490445
+WORKDIR /graal/compiler
+RUN mx build
 
 ARG VCS_URL
 ARG VCS_REF
@@ -51,5 +54,7 @@ LABEL org.label-schema.license="https://raw.githubusercontent.com/graalvm/fastr/
     org.label-schema.schema-version="rc1" \
 maintainer="Daniel Nüst <daniel.nuest@uni-muenster.de>"
 
+WORKDIR $FASTR_HOME
 ENV LANG=en_US.UTF-8
-CMD ["mx", "R"]
+ENTRYPOINT [ "mx", "--dynamicimports", "graal/compiler", "R" ]
+# enable compilation logs with mx --dynamicimport graal/compiler --J "@-Dgraal.TraceTruffleCompilation=true" R
