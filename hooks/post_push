@@ -4,3 +4,7 @@ set -e
 echo "Add version tag"
 docker tag $IMAGE_NAME $DOCKER_REPO:devel
 docker push $DOCKER_REPO:devel
+
+echo "Add R version tag"
+docker tag $IMAGE_NAME $DOCKER_REPO:R-$GNUR_VERSION
+docker push $DOCKER_REPO:R-$GNUR_VERSION
