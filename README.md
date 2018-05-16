@@ -1,6 +1,8 @@
 # FastR Dockerfile
 
-**under development**
+> [FastR](https://github.com/oracle/fastr) is an implementation of the R Language in Java atop [Truffle](https://github.com/oracle/graal/blob/master/truffle/README.md), a framework for building self-optimizing AST interpreters. FastR is be polyglot, efficient, and compatible. ([source](https://github.com/oracle/fastr/blob/master/README.md))
+
+![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg) ![Docker Build Status](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg) [![](https://images.microbadger.com/badges/image/nuest/fastr.svg)](https://microbadger.com/images/nuest/fastr "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/nuest/fastr.svg)](https://microbadger.com/images/nuest/fastr "Get your own version badge on microbadger.com")
 
 ## Build locally
 
