@@ -15,6 +15,7 @@ RUN sed -i "s/deb.debian.org/cdn-fastly.deb.debian.org/" /etc/apt/sources.list \
         libcurl4-openssl-dev \
         ed \
         libmpc-dev \
+        libssl-dev \
     && ldconfig
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
